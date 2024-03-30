@@ -1,0 +1,411 @@
+:root {
+    /* Colors */
+    --bg-page: rgb(248, 246, 246);
+    --main-color: #fff;
+
+    /* Font */
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Popup */
+    --popup-color: rgb(114, 208, 114);
+    --button-height: 48px;
+    --icon-size: 10px;
+    --loader-size: 52px;
+}
+
+body {
+    position: relative;
+    font-family: var(--font);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+h1, h2, h4, p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+/* Container for the swiper */
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.container::after{
+    content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: url(../images/bg/bg1.jpg) no-repeat center;
+	background-size: cover;
+	filter: blur(1vh);
+	z-index: -1;
+} 
+
+/* Informations buttons : Click to display popup */
+.fa-info-circle {
+    position: fixed;
+    top: 2vh;
+    left: 2vh;
+    font-size: 5vh !important;
+    color: var(--main-color);
+    transition: all .3s;
+    cursor: pointer;
+}
+.fa-info-circle:hover {
+    opacity: 0.5;
+    transform: scale(1.2);
+}
+.fa-info-circle:active {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+/* Pages of the swiper */
+.page {
+    height: 95vh;
+    width: 40vh;
+    width: 70vh;
+    border-radius: 2vh;
+    overflow: hidden;
+    background-color: var(--bg-page);
+    box-shadow: 0.22vh 0.55vh 1.1vh rgba(0, 0, 0, 0.2);
+}
+
+/* Page - Header */
+.page_top{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    color: var(--main-color);
+    margin: 4vh 0 0 6vh;
+}
+.page_top h1 {
+    font-size: 7vh;
+    letter-spacing: 0.5vh;
+}
+.page_top h2 {
+    font-size: 4.5vh;
+    letter-spacing: 0;
+}
+.page_top div {
+    height: 1vh;
+    width: 60%;
+    margin-top: 0.5vh;
+    background-color: var(--main-color);
+}
+.page_top p {
+    margin-top: 2vh;
+    font-size: 2.5vh;
+}
+
+/* Photos frames */
+.little_card_container {
+    position: absolute;
+    top: 75%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.little_card {
+    position: relative;
+    background-color: var(--main-color);
+    height: 25vh;
+    width: 25vh;
+    box-shadow: 0.22vh 0.22vh 1.1vh rgba(0, 0, 0, 0.2);
+}
+.little_card:nth-child(1) {
+    background-color: var(--main-color);
+    transform: rotate(20deg);
+}
+.little_card:nth-child(2) {
+    transform: rotate(-5deg) translateY(-30%);
+}
+.little_card:nth-child(3) {
+    transform: rotate(7deg) translateX(-15%) translateY(-70%);
+}
+.little_card_content {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100% - 2vh);
+    width: calc(100% - 2vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Text */
+.page_content_infos {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    width: 50%;
+    margin-bottom: 2vh;
+}
+.infos {
+    margin-bottom: 2vh;
+    display: flex;
+    justify-content: center;
+}
+.page_content_infos p {
+    margin: auto;
+    font-size: 1.8vh;
+}
+.page_content_infos i {
+    font-size: 7vh;
+    margin-right: 1vh;
+}
+.fa-camera-retro {
+    font-size: 6vh !important;
+}
+
+/* Background of the page */
+.page_bg {
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 50%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+/* Swiper buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 6vh;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all .3s;
+}
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: translateY(-50%) scale(1.1);
+
+}
+.prev:active,
+.next:active {
+    background-color: rgba(0, 0, 0, 0.3);
+    transform: translateY(-50%) scale(0.9);
+
+}
+
+/* Informations popup */
+.popup_container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    transition: all .3s;
+}
+.popup_container::after{
+    content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(0, 0, 0, 0.8);
+	filter: blur(5vh);
+	z-index: -1;
+} 
+.popup {
+    width: 60vh;
+    height: 60vh;
+    border-radius: 2vh;
+    border: 1px solid black;
+    background-color: rgb(248, 246, 246);
+    display: grid;
+    grid-template-rows: 20% 80%;
+    overflow: hidden;
+}
+
+/* Popup - Header */
+.popup header {
+    background-color: var(--popup-color);
+    padding: 4vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--main-color);
+}
+.popup header i {
+    font-size: 4vh;
+    transition: all .3s;
+    cursor: pointer;
+}
+.popup header i:hover {
+    transform: scale(1.2);
+}
+.popup header i:active {
+    transform: scale(0.9);
+}
+
+/* Popup - Content */
+.popup main {
+    padding: 4vh;
+    position: relative;
+}
+
+/* Popup - Message */
+#time {
+    margin-top: 2vh;
+}
+#time span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+#time span:last-child {
+    margin-bottom: 0;
+}
+#time span i {
+    font-size: 3vh;
+    margin-right: 1vh;
+    width: 4vh;
+    display: flex;
+    justify-content: center;
+}
+
+.popup main button {
+    position: absolute;
+    bottom: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Bouton de paiement - Importé de CodePen : réalisé par Codewithshobhit */
+button.expand {
+	overflow: hidden;
+	outline: none;
+	background-color: var(--popup-color);
+	border-radius: 10px;
+	padding: 12px 25px;
+	font-size: 1.1em;
+	border: none;
+	color: var(--main-color);
+	cursor: pointer;
+	position: relative;
+	transition: padding 0.3s;
+    width: 50%;
+}
+
+.expand-icon {
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: var(--button-height);
+	width: var(--button-height);
+	border-left: 1px solid var(--main-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translateX(calc(var(--button-height) + 1px));
+	transition: transform 0.3s;
+}
+
+.expand-icon > svg {
+	height: var(--icon-size);
+	width: var(--icon-size);
+	transform: scale(1.5);
+	transition: transform 0.3s;
+}
+
+.expand-icon > svg.second {
+	display: none;
+	transform: scale(0) translateY(50px);
+	transition: transform 0.3s;
+}
+
+button.expand:hover,
+button.expand.loading {
+	padding-right: calc(25px + var(--button-height));
+}
+
+button.expand:hover > .expand-icon,
+button.expand.loading > .expand-icon {
+	transform: translateX(0);
+	transition: transform 0.3s 0.05s;
+}
+
+button.expand.loading > .expand-icon > svg {
+	transform: scale(0);
+}
+
+@keyframes rotate {
+	0% {
+		transform: scale(0.3) rotateZ(0deg);
+	}
+	100% {
+		transform: scale(0.3) rotateZ(360deg);
+	}
+}
+
+.loader {
+	height: var(--loader-size);
+	width: var(--loader-size);
+	border: 4px solid var(--main-color);
+	border-left-color: transparent;
+	border-right-color: transparent;
+	background-color: transparent;
+	border-radius: 50%;
+	animation: rotate 1.5s linear infinite;
+	position: absolute;
+	right: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 1s 0.3s;
+}
+
+button.expand.loading > span > span.loader {
+	opacity: 1;
+}
+
+button.expand.loaded > span > span.loader {
+	opacity: 0 !important;
+}
+
+button.expand.loaded > .expand-icon > svg.first {
+	display: none;
+}
+
+button.expand.loaded > .expand-icon > svg.second {
+	display: block;
+}
+
+button.expand.finished > .expand-icon > svg.second {
+	transform: scale(1.5) translateY(0px);
+}
